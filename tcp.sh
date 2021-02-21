@@ -16,7 +16,7 @@ export PATH
 # PLAIN='\033[0m'
 
 sh_ver="1.3.2.71"
-github="github.000060000.xyz"
+github="https://github.com/333x/Linux-NetSpeed/raw/master"
 
 Green_font_prefix="\033[32m" && Red_font_prefix="\033[31m" && Green_background_prefix="\033[42;37m" && Red_background_prefix="\033[41;37m" && Font_color_suffix="\033[0m"
 Info="${Green_font_prefix}[信息]${Font_color_suffix}"
@@ -146,17 +146,17 @@ installbbrplus(){
 #安装Lotserver内核
 installlot(){
 	if [[ "${release}" == "centos" ]]; then
-		rpm --import http://${github}/lotserver/${release}/RPM-GPG-KEY-elrepo.org
+		rpm --import ${github}/lotserver/${release}/RPM-GPG-KEY-elrepo.org
 		yum remove -y kernel-firmware
-		yum install -y http://${github}/lotserver/${release}/${version}/${bit}/kernel-firmware-${kernel_version}.rpm
-		yum install -y http://${github}/lotserver/${release}/${version}/${bit}/kernel-${kernel_version}.rpm
+		yum install -y ${github}/lotserver/${release}/${version}/${bit}/kernel-firmware-${kernel_version}.rpm
+		yum install -y ${github}/lotserver/${release}/${version}/${bit}/kernel-${kernel_version}.rpm
 		yum remove -y kernel-headers
-		yum install -y http://${github}/lotserver/${release}/${version}/${bit}/kernel-headers-${kernel_version}.rpm
-		yum install -y http://${github}/lotserver/${release}/${version}/${bit}/kernel-devel-${kernel_version}.rpm
+		yum install -y ${github}/lotserver/${release}/${version}/${bit}/kernel-headers-${kernel_version}.rpm
+		yum install -y ${github}/lotserver/${release}/${version}/${bit}/kernel-devel-${kernel_version}.rpm
 	elif [[ "${release}" == "ubuntu" ]]; then
-		bash <(wget -qO- "https://${github}/Debian_Kernel.sh")
+		bash <(wget -qO- "${github}/Debian_Kernel.sh")
 	elif [[ "${release}" == "debian" ]]; then
-		bash <(wget -qO- "https://${github}/Debian_Kernel.sh")
+		bash <(wget -qO- "${github}/Debian_Kernel.sh")
 	fi
 	
 	detele_kernel
@@ -949,14 +949,14 @@ echo -e "${Info}johnrosen1优化方案应用结束，可能需要重启！"
 #更新脚本
 Update_Shell(){
 	echo -e "当前版本为 [ ${sh_ver} ]，开始检测最新版本..."
-	sh_new_ver=$(wget -qO- "https://${github}/tcp.sh"|grep 'sh_ver="'|awk -F "=" '{print $NF}'|sed 's/\"//g'|head -1)
+	sh_new_ver=$(wget -qO- "${github}/tcp.sh"|grep 'sh_ver="'|awk -F "=" '{print $NF}'|sed 's/\"//g'|head -1)
 	[[ -z ${sh_new_ver} ]] && echo -e "${Error} 检测最新版本失败 !" && start_menu
 	if [[ ${sh_new_ver} != ${sh_ver} ]]; then
 		echo -e "发现新版本[ ${sh_new_ver} ]，是否更新？[Y/n]"
 		read -p "(默认: y):" yn
 		[[ -z "${yn}" ]] && yn="y"
 		if [[ ${yn} == [Yy] ]]; then
-			wget -N "https://${github}/tcp.sh" && chmod +x tcp.sh && ./tcp.sh
+			wget -N "${github}/tcp.sh" && chmod +x tcp.sh && ./tcp.sh
 			echo -e "脚本已更新为最新版本[ ${sh_new_ver} ] !"
 		else
 			echo && echo "	已取消..." && echo
@@ -970,7 +970,7 @@ Update_Shell(){
 #切换到不卸载内核版本
 gototcpx(){
 	clear
-	wget -N "https://github.000060000.xyz/tcpx.sh" && chmod +x tcpx.sh && ./tcpx.sh
+	wget -N "${github}/tcpx.sh" && chmod +x tcpx.sh && ./tcpx.sh
 }
 
 #切换到秋水逸冰BBR安装脚本
